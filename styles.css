@@ -1,0 +1,962 @@
+/* --------------------------------------------------
+   1. CSS RESET, VARIABLES & ACCESSIBILITY BASE
+-------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --primary-yellow: yellow;
+  --primary-hover: yellow;
+  --dark-bg: #111111;
+  --card-bg: #1A1A1A;
+  --surface-bg: #222222;
+  --text-white: #FFFFFF;
+  --text-muted: #B0B0B0;
+  --border-color: #333333;
+  --error-color: #FF5252;
+  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --transition: all 0.3s ease-in-out;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--dark-bg);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  font-size: 100%;
+  line-height: 1.6;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  appearance: none;
+  border-radius: 0;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+/* --------------------------------------------------
+   2. TYPOGRAPHY & LAYOUT (MOBILE-FIRST BASE)
+-------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
+  line-height: 1.25;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.container {
+  width: 92%;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+.section-padding {
+  padding: 3.5rem 0;
+}
+
+.text-center { text-align: center; }
+.text-yellow { color: var(--primary-yellow); }
+
+.section-title {
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 0.25rem;
+  background: var(--primary-yellow);
+  margin: 0.5rem auto 0;
+  border-radius: 0.125rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: clamp(0.875rem, 3vw, 1.05rem);
+  margin-bottom: 2.25rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  border: 0.125rem solid transparent;
+  transition: var(--transition);
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.03rem;
+  text-align: center;
+  width: 100%;
+}
+
+.btn-yellow {
+  background-color: var(--primary-yellow);
+  color: var(--dark-bg);
+  border-color: var(--primary-yellow);
+}
+
+.btn-yellow:hover, .btn-yellow:focus {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--primary-yellow);
+  color: var(--primary-yellow);
+}
+
+.btn-outline:hover, .btn-outline:focus {
+  background: var(--primary-yellow);
+  color: var(--dark-bg);
+}
+
+/* --------------------------------------------------
+   3. HEADER & NAVIGATION
+-------------------------------------------------- */
+header {
+  background-color: rgba(0, 0, 0, 0.96);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 0.125rem solid var(--primary-yellow);
+  backdrop-filter: blur(8px);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4.375rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+/* Fix image sizing & hide broken alt text overflow */
+.logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  /* Hides alt text overflow if image fails to load */
+  overflow: hidden;
+  font-size: 0; 
+  display: block;
+}
+
+.logo-icon {
+  background: var(--primary-yellow);
+  color: var(--dark-bg);
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.5rem;
+  color: var(--primary-yellow);
+  cursor: pointer;
+}
+
+.nav-links {
+  position: fixed;
+  top: 4.375rem;
+  left: -100%;
+  width: 100%;
+  height: calc(100vh - 4.375rem);
+  background: var(--dark-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  transition: var(--transition);
+  border-top: 0.0625rem solid var(--border-color);
+  list-style: none;
+  overflow-y: auto;
+}
+
+.nav-links.active {
+  left: 0;
+}
+
+.nav-links li {
+  width: 100%;
+  text-align: center;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover, .nav-links a:focus {
+  color: var(--primary-yellow);
+}
+
+.lang-btn {
+  background: var(--surface-bg);
+  border: 0.0625rem solid var(--primary-yellow);
+  color: var(--primary-yellow);
+  padding: 0.5rem 1.25rem;
+  border-radius: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  font-size: 0.875rem;
+  width: 100%;
+  max-width: 12rem;
+  margin-top: 0.5rem;
+}
+
+/* --------------------------------------------------
+   4. HERO SECTION
+-------------------------------------------------- */
+.hero {
+  min-height: 90vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(1, 1, 1, 0.9)), 
+              url('photos/Nabakifrontview.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 0 3rem;
+}
+
+.hero-content h1 {
+  font-size: clamp(1.6rem, 6vw, 3rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+}
+
+.hero-content p {
+  font-size: clamp(0.9rem, 3vw, 1.15rem);
+  max-width: 48rem;
+  margin: 0 auto 1.75rem;
+  color: #fdf9f9;
+}
+
+.hero-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 25rem;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------
+   5. STATS & ACHIEVEMENTS SECTION (FROM UPLOADED IMAGE)
+-------------------------------------------------- */
+.stats-section {
+  padding: 4rem 0;
+  border-bottom: 0.0625rem solid var(--border-color);
+}
+
+.stats-quote {
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  color: var(--text-white);
+  max-width: 60rem;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  font-weight: 900;
+  font-family: var(--font-heading);
+  color: var(--text-white);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: var(--primary-yellow);
+  font-weight: 700;
+  font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+  text-transform: capitalize;
+}
+
+/* --------------------------------------------------
+   6. ANNIVERSARY BANNER
+-------------------------------------------------- */
+.anniversary-banner {
+  background: var(--primary-yellow);
+  color: var(--dark-bg);
+  padding: 2rem 0;
+}
+
+.anniversary-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.anniversary-text h2 {
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  font-weight: 900;
+}
+
+.anniversary-text p {
+  font-weight: 600;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+/* --------------------------------------------------
+   7. INTERACTIVE PILLARS
+-------------------------------------------------- */
+/* Container grid setup */
+.pillar-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Image styling */
+.pillar-image-wrap {
+  width: 100%;
+  height: 100%;
+  max-height: 250px;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid yellow;
+}
+
+.pillar-detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 768px) {
+  .pillar-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pillar-image-wrap {
+    max-height: 200px;
+  }
+}
+
+.content-box {
+  background-color: rgba(0, 0, 0, 0.75); /* Dark box background to make text readable */
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.content-box h2 {
+  color: #ffffff;
+  font-size: 2rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.yellow-divider {
+  width: 80px;
+  height: 3px;
+  background-color: yellow;
+  margin: 10px auto;
+}
+
+.content-box .subtitle {
+  color: #d1d5db;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.container text-center {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: content-box;
+}
+
+.grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--transition);
+  height: 100%;
+}
+
+.pillar-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pillar-card:hover, .pillar-card:focus {
+  border-color: var(--primary-yellow);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.5rem 1.5rem rgba(255, 215, 0, 0.15);
+}
+
+.service-card i {
+  font-size: 2.25rem;
+  color: var(--primary-yellow);
+  margin-bottom: 0.75rem;
+}
+
+.service-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.pillar-action {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--primary-yellow);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.pillar-detail-box {
+  margin-top: 2rem;
+  background: var(--card-bg);
+  border: 0.125rem solid var(--primary-yellow);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: left;
+  position: relative;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.close-pillar-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 2rem;
+  color: var(--primary-yellow);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.pillar-detail-title {
+  color: var(--primary-yellow);
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.pillar-detail-list {
+  list-style-type: square;
+  padding-left: 1.25rem;
+  color: #f8f7f7;
+}
+
+.pillar-detail-list li {
+  margin-bottom: 0.5rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------
+   8. LEADERSHIP & PARTNERS (WITH LOGOS)
+-------------------------------------------------- */
+.leader-card {
+  background: var(--card-bg);
+  border-radius: 0.375rem;
+  overflow: hidden;
+  border: 0.0625rem solid var(--border-color);
+}
+
+.leader-card img {
+  width: 100%;
+  height: 18.75rem;
+  object-fit: cover;
+}
+
+.leader-info {
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.leader-info h3 {
+  color: var(--primary-yellow);
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.leader-info span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.partner-card img {
+  max-height: 140px;
+  max-width: 80%;
+  object-fit: contain;
+  filter: grayscale(20%);
+  transition: var(--transition);
+}
+
+.partner-card:hover img {
+  filter: grayscale(0%);
+}
+
+.partner-card {
+  background: black; /* Pure white background so JPEG logos blend in */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
+
+.partner-card img {
+  max-height: 60px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: none; /* Keep original logo colors sharp */
+}
+
+.partner-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
+}
+
+/* --------------------------------------------------
+   9. BRANCH CARDS
+-------------------------------------------------- */
+.branch-card {
+  background: var(--card-bg);
+  border-left: 0.25rem solid var(--primary-yellow);
+  border-radius: 0.25rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.branch-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.branch-rating {
+  color: var(--primary-yellow);
+  font-size: 0.85rem;
+}
+
+.branch-detail {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.branch-detail i {
+  color: var(--primary-yellow);
+  margin-top: 0.2rem;
+}
+
+.branch-btn {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  width: 100%;
+}
+
+/* --------------------------------------------------
+   10. GALLERY & NEWS
+-------------------------------------------------- */
+.gallery-item {
+  position: relative;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  height: 14.375rem;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.88));
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.gallery-item:hover .gallery-overlay,
+.gallery-item:focus-within .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay span {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.news-card {
+  background: var(--card-bg);
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+}
+
+.news-date {
+  color: var(--primary-yellow);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.news-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.news-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------
+   11. FORM & ACCESSIBLE INLINE VALIDATION
+-------------------------------------------------- */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-info-card, .contact-form-wrapper {
+  width: 100%;
+}
+
+.contact-info-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  border: 0.0625rem solid var(--border-color);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.contact-item i {
+  font-size: 1.25rem;
+  color: var(--primary-yellow);
+  margin-top: 0.2rem;
+}
+
+.social-links-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.social-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--surface-bg);
+  color: var(--primary-yellow);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  border: 0.0625rem solid var(--border-color);
+}
+
+.social-icon:hover, .social-icon:focus {
+  background: var(--primary-yellow);
+  color: var(--dark-bg);
+}
+
+form {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  border: 0.0625rem solid var(--border-color);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.75rem;
+  background: var(--surface-bg);
+  border: 0.0625rem solid var(--border-color);
+  border-radius: 0.25rem;
+  color: var(--text-white);
+  outline: none;
+  transition: var(--transition);
+}
+
+textarea.form-control {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.form-control:focus {
+  border-color: var(--primary-yellow);
+}
+
+.form-control.invalid-field {
+  border-color: var(--error-color);
+}
+
+.field-error-msg {
+  display: none;
+  color: var(--error-color);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+.field-error-msg.visible {
+  display: block;
+}
+
+.form-status-banner {
+  display: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.form-status-banner.error {
+  display: block;
+  background: #3B1212;
+  border: 0.0625rem solid var(--error-color);
+  color: #FF8888;
+}
+
+/* --------------------------------------------------
+   12. FOOTER
+-------------------------------------------------- */
+footer {
+  background: #090909;
+  border-top: 0.0625rem solid var(--border-color);
+  padding: 2.25rem 0 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom {
+  border-top: 0.0625rem solid var(--border-color);
+  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+/* --------------------------------------------------
+   13. RESPONSIVE MEDIA QUERIES (MIN-WIDTH)
+-------------------------------------------------- */
+@media (min-width: 48rem) {
+  .btn { width: auto; }
+
+  .hero-btns {
+    flex-direction: row;
+    max-width: none;
+    justify-content: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .anniversary-flex {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .contact-container { flex-direction: row; }
+  .contact-info-card, .contact-form-wrapper { flex: 1; }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 64rem) {
+  .mobile-toggle { display: none; }
+
+  .nav-links {
+    position: static;
+    height: auto;
+    width: auto;
+    background: transparent;
+    flex-direction: row;
+    padding: 0;
+    border-top: none;
+    overflow-y: visible;
+    gap: 1.25rem;
+  }
+
+  .nav-links li { width: auto; }
+  .nav-links a { font-size: 0.85rem; min-height: auto; }
+
+  .lang-btn {
+    width: auto;
+    margin-top: 0;
+    min-height: 2.25rem;
+  }
+
+  .grid-layout.four-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-layout.three-cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
