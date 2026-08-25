@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Interactive Pillars Detail Box Data
   var pillarData = {
     extractives: {
-      img: 'photos/Miningimages.jpg',
+      img: 'Miningimages.jpg',
        en: {
         title: "NABAKI EXTRACTIVES",
         content: "<p>Providing high-performance technical solutions designed for heavy civil engineering, earthworks, and extraction environments:</p><ul class='pillar-detail-list'><li>Geosynthetic soil stabilization and slope protection.</li><li>Heavy-duty drainage & erosion control matrices.</li><li>Mine site containment barriers and personnel safety equipment.</li></ul>"
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     },
     construction: {
-      img: 'photos/Nabakiconstructionimage.jpg',
+      img: 'Nabakiconstructionimage.jpg',
       en: {
         title: "NABAKI CONSTRUCTION",
         content: "<p>Delivering structural materials that exceed global standards for durability and safety:</p><ul class='pillar-detail-list'><li>CONMIX concrete repair mortars & structural grouts.</li><li>Heavy commercial expansion joints and elastomeric sealants.</li><li>Structural waterproofing membranes for basements and foundations.</li></ul>"
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     },
     home: {
-      img: 'photos/Homeimage.jpg',
+      img: 'Homeimage.jpg',
       en: {
         title: "NABAKI HOME",
         content: "<p>Elevating residential properties with durable, aesthetic, and weather-tested solutions:</p><ul class='pillar-detail-list'><li>Decra Stone-Coated Roofing Tiles (Original Lightweight Roofing).</li><li>Woodoc wood care sealers & protective coatings for exterior timber.</li><li>IPS pressure piping systems and residential waterproofing sealers.</li></ul>"
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     },
     esg: {
-      img: 'photos/Nabakiesgimage.png',
+      img: 'Nabakiesgimage.png',
       en: {
         title: "NABAKI ESG & Sustainability",
         content: "<p>Committed to social responsibility, environmental stewardship, and sustainable building:</p><ul class='pillar-detail-list'><li>Founding partnership with Nipe Fagio for environmental cleanliness.</li><li>Supply of Mixx eco-friendly cement reducing carbon footprints.</li><li>Community education programs for local Tanzanian contractors.</li></ul>"

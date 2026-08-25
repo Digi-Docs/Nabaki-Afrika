@@ -279,7 +279,7 @@ header {
 .hero {
   min-height: 90vh;
   background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(1, 1, 1, 0.9)), 
-              url('photos/Nabakifrontview.jpg') center/cover no-repeat;
+              url('Nabakifrontview.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
